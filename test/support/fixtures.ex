@@ -1,5 +1,5 @@
 defmodule Aeacus.Test.MockResource do
-  use Ecto.Model
+  use Ecto.Schema
   schema "default_resource" do
     field :email, :string
     field :hashed_password, :string
@@ -7,7 +7,7 @@ defmodule Aeacus.Test.MockResource do
 end
 
 defmodule Aeacus.Test.MockCustomResource do
-  use Ecto.Model
+  use Ecto.Schema
   schema "custom_resource" do
     field :username, :string
     field :pass, :string

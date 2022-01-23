@@ -8,7 +8,7 @@ A simple, secure, and highly configurable Elixir identity [username | email | id
 #### Description ####
 Aeacus only performs authentication, making it well suited for integration with session storage, or a token system; like [Guardian](https://github.com/hassox/guardian) or [Phoenix Tokens](http://hexdocs.pm/phoenix/Phoenix.Token.html). For convenience, `authenticate/2` & `authenticate_resource/3` are delegated from `Aeacus` (`Aeacus.authenticate(...)`).
 
-`Aeacus.hashpwsalt/1` delegates to the underlying crypto system to salt and hash a password.
+`Aeacus.hash_pwd_salt/1` delegates to the underlying crypto system to salt and hash a password.
 
 #### Dependencies ####
 Ecto is required only if you wish to use `Aeacus.authenticate/2`; if using `Aeacus.authenticate_resource/3` Ecto is not required.
@@ -24,7 +24,7 @@ config :aeacus, Aeacus,
   repo: MyApp.Repo,
   model: MyApp.User,
   # Optional, The following are the default options
-  crypto: Comeonin.Pbkdf2,
+  crypto: Pbkdf2,
   identity_field: :email,
   password_field: :hashed_password,
   error_message: "Invalid identity or password."

@@ -24,4 +24,4 @@ defmodule Aeacus.Test.Seed do
   end
 end
 
-Ecto.Adapters.SQL.begin_test_transaction(Aeacus.Test.Repo)
+Ecto.Adapters.SQL.Sandbox.mode(Aeacus.Test.Repo, {:shared, self()})

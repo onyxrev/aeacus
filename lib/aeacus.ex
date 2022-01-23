@@ -5,7 +5,7 @@ defmodule Aeacus do
   """
 
   @default_config %{
-    crypto: Comeonin.Pbkdf2,
+    crypto: Pbkdf2,
     identity_field: :email,
     password_field: :hashed_password,
     error_message: "Invalid identity or password."
@@ -17,9 +17,9 @@ defmodule Aeacus do
   defdelegate authenticate_resource(resource, password, configuration), to: Aeacus.Authenticator
 
   @doc """
-  Exposes the crypto module's hashpwsalt function. Used to salt and hash a password
+  Exposes the crypto module's hash_pwd_salt function. Used to salt and hash a password
   """
-  def hashpwsalt(password), do: config(nil).crypto.hashpwsalt(password)
+  def hash_pwd_salt(password), do: config(nil).crypto.hash_pwd_salt(password)
 
   @doc """
   Decides to use the override_config or application config.

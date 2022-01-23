@@ -10,7 +10,7 @@ defmodule AeacusTest do
 
   test "default config values, inherited by projects using Aeacus" do
     config = Aeacus.config %{}
-    assert config.crypto == Comeonin.Pbkdf2
+    assert config.crypto == Pbkdf2
     assert config.identity_field == :email
     assert config.password_field == :hashed_password
     assert config.error_message == "Invalid identity or password."
@@ -51,8 +51,8 @@ defmodule AeacusTest do
     assert_ok Aeacus.authenticate_resource user, %{identity: @email, password: @password}, %{}
   end
 
-  test "hashpwsalt" do
-    assert Aeacus.hashpwsalt("hi") |> String.starts_with?("$pbkdf2-sha512$")
+  test "hash_pwd_salt" do
+    assert Aeacus.hash_pwd_salt("hi") |> String.starts_with?("$pbkdf2-sha512$")
   end
 
 end

@@ -1,10 +1,11 @@
 defmodule Aeacus.AuthenticatorTest do
+  require IEx
   use ExUnit.Case
   use Aeacus.Test.Helper
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Repo, [])
+      Ecto.Adapters.SQL.Sandbox.checkout(Repo)
     end
 
     :ok
@@ -19,7 +20,7 @@ defmodule Aeacus.AuthenticatorTest do
       password: @password},
     %{repo: Repo,
       model: MockCustomResource,
-      crypto: Comeonin.Pbkdf2,
+      crypto: Pbkdf2,
       identity_field: :username,
       password_field: :pass,
       error_message: "Invalid identity or password."
@@ -51,7 +52,7 @@ defmodule Aeacus.AuthenticatorTest do
       password: @password},
     %{repo: Repo,
       model: MockCustomResource,
-      crypto: Comeonin.Pbkdf2,
+      crypto: Pbkdf2,
       identity_field: :username,
       password_field: :pass,
       error_message: "Not the droids I was looking for"

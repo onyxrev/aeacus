@@ -31,15 +31,16 @@ defmodule Aeacus.Mixfile do
   end
 
   defp applications(_) do
-    [:comeonin]
+    [:pbkdf2_elixir]
   end
 
   defp deps do
     [
-      {:comeonin, "~> 1.0"},
+      {:pbkdf2_elixir, "~> 2.0.0"},
       {:ex_doc, ">=0.1.0", only: [:dev, :test]},
         {:earmark, ">= 0.0.0", only: [:dev, :test]},
-      {:ecto, "~> 1.0", only: :test},
+      {:ecto, "~> 3.0", only: :test},
+      {:ecto_sql, "~> 3.4", only: :test},
       {:postgrex, ">= 0.0.0", only: :test}
     ]
   end

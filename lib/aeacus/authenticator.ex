@@ -16,7 +16,7 @@ defmodule Aeacus.Authenticator do
   def authenticate(%{identity: id, password: pass}, configuration \\ %{}) do
     config = Aeacus.config(configuration)
     load_resource(id, config)
-    |> check_pw(pass, config)
+    |> check_pass(pass, config)
   end
 
   @doc """
@@ -30,7 +30,7 @@ defmodule Aeacus.Authenticator do
   def authenticate_resource(resource, %{password: pass}, configuration \\ %{}) do
     config = Aeacus.config(configuration)
     resource
-    |> check_pw(pass, config)
+    |> check_pass(pass, config)
   end
 
   #
@@ -50,8 +50,8 @@ defmodule Aeacus.Authenticator do
   #
   #   This helps prevent leaking valid identities in timing attacks.
   # """
-  defp check_pw(nil, _, %{crypto: crypto, error_message: error}) do
-    crypto.dummy_checkpw
+  defp check_pass(nil, _, %{crypto: crypto, error_message: error}) do
+    crypto.no_user_verify
     {:error, error}
   end
 
@@ -59,11 +59,7 @@ defmodule Aeacus.Authenticator do
   #   Checks the password against the resources password_field as defined in the
   #   configuration (Defaults to :hashed_password).
   # """
-  defp check_pw(resource, password, %{password_field: pw_field, crypto: crypto, error_message: error}) do
-    if crypto.checkpw(password, Map.get(resource, pw_field)) do
-      {:ok, resource}
-    else
-      {:error, error}
-    end
+  defp check_pass(resource, password, %{password_field: pw_field, crypto: crypto, error_message: error}) do
+    crypto.check_pass(resource, password, hash_key: pw_field)
   end
 end

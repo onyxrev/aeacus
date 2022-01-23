@@ -13,7 +13,7 @@ defmodule Aeacus.Test.Helper do
       @email "test@example.com"
       @username "a"
       @password "1234"
-      @hashed_password Comeonin.Pbkdf2.hashpwsalt(@password)
+      @hashed_password Pbkdf2.hash_pwd_salt(@password)
     end
   end
 end
